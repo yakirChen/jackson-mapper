@@ -1,0 +1,61 @@
+
+### global
+*~
+.DS_Store
+
+transform/tmp
+
+### build \ make
+build/
+target/
+logs/
+
+### CMake
+CMakeFiles/
+CMakeCache.txt
+cmake-build-debug/
+
+### JVM
+hs_err_pid*
+
+### IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+gen/
+
+### Netbeans
+nbproject/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+*~.nib
+
+### Xcode
+*.xcodeproj
+
+### Eclipse
+.project/
+.settings/
+.metadata/
+tmp/
+*.tmp
+*.bak
+*.swp
+.loadpath
+.recommenders
+
+### Gradle
+.gradle/
+
+
+### hexo
+Thumbs.db
+db.json
+*.log
+#node_modules/
+public/
+.deploy*/
