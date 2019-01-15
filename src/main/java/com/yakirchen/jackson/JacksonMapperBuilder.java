@@ -18,7 +18,6 @@ import java.time.format.DateTimeFormatter;
  *
  * @author yakir <a href="yakirchen.com">yakirchen.com</a> on 07/10/2018 15:05.
  */
-final
 public class JacksonMapperBuilder {
 
     private static final Logger logger = LoggerFactory.getLogger(JacksonMapperBuilder.class);
@@ -92,7 +91,6 @@ public class JacksonMapperBuilder {
         return this;
     }
 
-
     public JacksonMapperBuilder seDateTimeFormatterPattern(String pattern) {
         DateTimeFormatter       dtf         = DateTimeFormatter.ofPattern(pattern);
         LocalDateTimeSerializer dateTimeSer = new LocalDateTimeSerializer(dtf);
@@ -112,10 +110,15 @@ public class JacksonMapperBuilder {
         return this;
     }
 
-    /// SerializationFeature ----------------------------------------------------------
+    /// SerializationFeature ------------------------------------------------------------
 
-    public JacksonMapperBuilder deDisableDatesAsTimestamps() {
+    public JacksonMapperBuilder seDisableDatesAsTimestamps() {
         mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, Boolean.FALSE);
+        return this;
+    }
+
+    public JacksonMapperBuilder seDisableFailOnEmptyBeans() {
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, Boolean.FALSE);
         return this;
     }
 
@@ -129,7 +132,7 @@ public class JacksonMapperBuilder {
     /**
      * build
      *
-     * @return ObjectMapper
+     * @return JacksonMapper
      */
     public JacksonMapper build() {
 

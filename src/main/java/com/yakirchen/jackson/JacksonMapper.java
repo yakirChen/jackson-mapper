@@ -10,6 +10,8 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -513,4 +515,16 @@ public class JacksonMapper
             return null;
         }
     }
+
+    public <T> String defaultPrettyPrinter(T obj) {
+
+        SerializationConfig config       = getSerializationConfig();
+        ObjectWriter        objectWriter = _newWriter(config, null, config.getDefaultPrettyPrinter());
+        try {
+            return objectWriter.writeValueAsString(obj);
+        } catch (JsonProcessingException exc) {
+            return null;
+        }
+    }
+
 }

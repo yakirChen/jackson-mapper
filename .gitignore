@@ -1,13 +1,11 @@
-
-### global
+### Global
 *~
 .DS_Store
-
-transform/tmp
 
 ### build \ make
 build/
 target/
+mods/
 logs/
 
 ### CMake
@@ -21,8 +19,8 @@ hs_err_pid*
 ### IntelliJ
 .idea/
 *.iml
-*.ipr
 *.iws
+*.ipr
 out/
 gen/
 
@@ -33,6 +31,14 @@ dist/
 nbdist/
 .nb-gradle/
 *~.nib
+
+### STS
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
 
 ### Xcode
 *.xcodeproj
@@ -51,8 +57,10 @@ tmp/
 ### Gradle
 .gradle/
 
+### bazel
+bazel*
 
-### hexo
+### Hexo
 Thumbs.db
 db.json
 *.log

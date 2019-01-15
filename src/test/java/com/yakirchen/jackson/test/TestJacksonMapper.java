@@ -24,16 +24,31 @@ public class TestJacksonMapper {
     public void testJacksonMapperBuild() {
 
         JacksonMapper jacksonMapper = new JacksonMapperBuilder()
+                .snakeCase()
+                .upperCamelCase()
+                .lowerCamelCase()
+                .lowerCase()
+                .kebabCase()
+                .deDisableFailOnUnknowPropertis()
+                .deDisableFailOnIgnoredProperties()
+                .seDisableDatesAsTimestamps()
+                .seDisableFailOnEmptyBeans()
+                .seDateTimeFormatterPattern("yyyy-MM-dd HH:mm:ss SSS")
+                .deDateTimeFormatterPattern("yyyy-MM-dd HH:mm:ss SSS")
+                .dateFormat("yyyy-MM-dd HH:mm:ss SSS")
                 .build();
 
         List<String> hobby = new ArrayList<>(1);
+        hobby.add(".");
+        hobby.add("..");
         hobby.add("...");
+        hobby.add("....");
 
         Foo foo = new Foo(Long.MAX_VALUE,
                 LocalDateTime.now(),
                 hobby);
 
-        String json = jacksonMapper.writeValueAsString(foo);
+        String json = jacksonMapper.defaultPrettyPrinter(foo);
         logger.info(json);
         Foo foo0 = jacksonMapper.readValue(json, Foo.class);
 

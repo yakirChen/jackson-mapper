@@ -6,7 +6,7 @@
 
     <groupId>com.yakirchen</groupId>
     <artifactId>jackson-mapper</artifactId>
-    <version>0.0.1.1</version>
+    <version>0.0.2.0</version>
 
     <name>Jackson Mapper</name>
     <description>Jackson Mapper</description>
@@ -44,19 +44,20 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <!-- build -->
-        <maven.surefire.version>2.22.1</maven.surefire.version>
+        <maven.surefire.version>3.0.0-M3</maven.surefire.version>
         <maven.source.version>3.0.1</maven.source.version>
+        <maven.enforcer.version>3.0.0-M2</maven.enforcer.version>
         <maven.clean.version>3.1.0</maven.clean.version>
         <maven.compiler.version>3.8.0</maven.compiler.version>
-        <maven.install.version>2.5.2</maven.install.version>
-        <maven.jar.version>3.1.0</maven.jar.version>
+        <maven.install.version>3.0.0-M1</maven.install.version>
+        <maven.jar.version>3.1.1</maven.jar.version>
         <maven.resources.version>3.1.0</maven.resources.version>
         <maven.site.version>3.7.1</maven.site.version>
         <maven.javadoc.version>3.0.1</maven.javadoc.version>
-        <maven.deploy.version>2.8.2</maven.deploy.version>
+        <maven.deploy.version>3.0.0-M1</maven.deploy.version>
         <maven.gpg.version>1.6</maven.gpg.version>
 
-        <maven.os.version>1.6.0</maven.os.version>
+        <maven.os.version>1.6.1</maven.os.version>
         <os.detection.classifierWithLikes>
             linux,osx,windows
         </os.detection.classifierWithLikes>
@@ -65,13 +66,23 @@
         <org.slf4j.api.version>1.7.25</org.slf4j.api.version>
         <ch.qos.logback.version>1.2.3</ch.qos.logback.version>
 
-        <com.fasterxml.classmate.version>1.4.0</com.fasterxml.classmate.version>
-        <com.fasterxml.jackson.version>2.9.7</com.fasterxml.jackson.version>
+        <jackson.classmate.version>1.4.0</jackson.classmate.version>
+        <jackson.version>2.9.8</jackson.version>
+        <jackson.version.annotations>2.9.8</jackson.version.annotations>
+        <jackson.version.core>2.9.8</jackson.version.core>
+        <jackson.version.databind>2.9.8</jackson.version.databind>
+        <jackson.version.dataformat>2.9.8</jackson.version.dataformat>
+        <jackson.version.datatype>2.9.8</jackson.version.datatype>
+        <jackson.version.jaxrs>2.9.8</jackson.version.jaxrs>
+        <jackson.version.jacksonjr>2.9.8</jackson.version.jacksonjr>
+        <jackson.version.module>2.9.8</jackson.version.module>
+        <jackson.version.module.kotlin>2.9.8</jackson.version.module.kotlin>
+        <jackson.version.module.scala>2.9.8</jackson.version.module.scala>
 
         <junit4.version>4.12</junit4.version>
-        <org.junit5.platform.version>1.3.1</org.junit5.platform.version>
-        <org.junit5.jupiter.version>5.3.1</org.junit5.jupiter.version>
-        <org.junit5.vintage.version>5.3.1</org.junit5.vintage.version>
+        <org.junit5.platform.version>1.3.2</org.junit5.platform.version>
+        <org.junit5.jupiter.version>5.3.2</org.junit5.jupiter.version>
+        <org.junit5.vintage.version>5.3.2</org.junit5.vintage.version>
     </properties>
 
     <licenses>
@@ -83,6 +94,18 @@
         </license>
     </licenses>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.fasterxml.jackson</groupId>
+                <artifactId>jackson-base</artifactId>
+                <version>${jackson.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -93,42 +116,52 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${ch.qos.logback.version}</version>
+            <optional>true</optional>
         </dependency>
 
         <dependency>
             <groupId>com.fasterxml</groupId>
             <artifactId>classmate</artifactId>
-            <version>${com.fasterxml.classmate.version}</version>
+            <version>${jackson.classmate.version}</version>
         </dependency>
+
+        <!-- Core -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>${com.fasterxml.jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${com.fasterxml.jackson.version}</version>
+            <version>${jackson.version.annotations}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>${com.fasterxml.jackson.version}</version>
+            <version>${jackson.version.core}</version>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-parameter-names</artifactId>
-            <version>${com.fasterxml.jackson.version}</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version.databind}</version>
         </dependency>
+
+        <!-- Data Types -->
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jdk8</artifactId>
-            <version>${com.fasterxml.jackson.version}</version>
+            <version>${jackson.version.datatype}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-json-org</artifactId>
+            <version>${jackson.version.datatype}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>${com.fasterxml.jackson.version}</version>
+            <version>${jackson.version.datatype}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr353</artifactId>
+            <version>${jackson.version.datatype}</version>
         </dependency>
 
         <dependency>
@@ -153,11 +186,13 @@
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-runner</artifactId>
             <version>${org.junit5.platform.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
             <version>${org.junit5.platform.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -226,6 +261,54 @@
                 </repository>
             </distributionManagement>
         </profile>
+        <profile>
+            <id>xw</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>xw-snapshot</id>
+                    <name>xinwang</name>
+                    <url>http://192.168.100.23:8000/nexus/content/repositories/Xw-Snapshot/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>xw-release</id>
+                    <name>xinwang</name>
+                    <url>http://192.168.100.23:8000/nexus/content/repositories/Xw-Releases/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
     </profiles>
 
     <build>
@@ -263,6 +346,11 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${maven.enforcer.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>${maven.jar.version}</version>
                 </plugin>
@@ -283,5 +371,26 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>[3.5,)</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 </project>

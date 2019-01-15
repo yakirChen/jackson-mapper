@@ -4,16 +4,44 @@
 对`ObjectMapper`抛出的`Exception`做了`Check`(log 🤣)
 
 ```java
-String pattern = "yyyy-MM-dd HH:mm:ss";
+String pattern = "yyyy-MM-dd HH:mm:ss SSS";
 JacksonMapper jacksonMapper = new JacksonMapperBuilder()
-            .deDisableDatesAsTimestamps()
-            .dateFormat(pattern)
-            .deDateTimeFormatterPattern(pattern)
-            .seDateTimeFormatterPattern(pattern)
-            .snakeCase()
-            .deDisableFailOnUnknowPropertis()
-            .deDisableFailOnIgnoredProperties()
-            .build();
+        .snakeCase()
+        .upperCamelCase()
+        .lowerCamelCase()
+        .lowerCase()
+        .kebabCase()
+        .deDisableFailOnUnknowPropertis()
+        .deDisableFailOnIgnoredProperties()
+        .seDisableDatesAsTimestamps()
+        .seDisableFailOnEmptyBeans()
+        .seDateTimeFormatterPattern("yyyy-MM-dd HH:mm:ss SSS")
+        .deDateTimeFormatterPattern("yyyy-MM-dd HH:mm:ss SSS")
+        .dateFormat("yyyy-MM-dd HH:mm:ss SSS")
+        .build();
+
+List<String> hobby = new ArrayList<>(1);
+hobby.add(".");
+hobby.add("..");
+hobby.add("...");
+hobby.add("....");
+Foo foo = new Foo(Long.MAX_VALUE,
+        LocalDateTime.now(),
+        hobby);
+String json = jacksonMapper.defaultPrettyPrinter(foo);
+logger.info(json);
+Foo foo0 = jacksonMapper.readValue(json, Foo.class);
+Assertions.assertEquals(foo0.getCdate(), foo.getCdate());
+Assertions.assertEquals(foo0.getId(), foo.getId());
+Assertions.assertEquals(foo0.getHobby(), foo.getHobby());
+```
+
+```json
+{
+  "id" : 9223372036854775807,
+  "cdate" : "2019-01-13 00:25:49 732",
+  "hobby" : [ ".", "..", "...", "...." ]
+}
 ```
 
 License:
