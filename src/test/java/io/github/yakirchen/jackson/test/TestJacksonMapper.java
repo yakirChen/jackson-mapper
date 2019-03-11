@@ -1,7 +1,8 @@
-package com.yakirchen.jackson.test;
+package io.github.yakirchen.jackson.test;
 
-import com.yakirchen.jackson.JacksonMapper;
-import com.yakirchen.jackson.JacksonMapperBuilder;
+import com.fasterxml.jackson.core.type.TypeReference;
+import io.github.yakirchen.jackson.JacksonMapper;
+import io.github.yakirchen.jackson.JacksonMapperBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * TestJacksonMapper
@@ -19,6 +21,8 @@ import java.util.List;
 public class TestJacksonMapper {
 
     private static final Logger logger = LoggerFactory.getLogger(TestJacksonMapper.class);
+
+    private static final String DATE_PATTERN = "yyyy-MM-dd HH:mm:ss SSS";
 
     @Test
     public void testJacksonMapperBuild() {
@@ -33,9 +37,9 @@ public class TestJacksonMapper {
                 .deDisableFailOnIgnoredProperties()
                 .seDisableDatesAsTimestamps()
                 .seDisableFailOnEmptyBeans()
-                .seDateTimeFormatterPattern("yyyy-MM-dd HH:mm:ss SSS")
-                .deDateTimeFormatterPattern("yyyy-MM-dd HH:mm:ss SSS")
-                .dateFormat("yyyy-MM-dd HH:mm:ss SSS")
+                .seDateTimeFormatterPattern(DATE_PATTERN)
+                .deDateTimeFormatterPattern(DATE_PATTERN)
+                .dateFormat(DATE_PATTERN)
                 .build();
 
         List<String> hobby = new ArrayList<>(1);
@@ -44,9 +48,11 @@ public class TestJacksonMapper {
         hobby.add("...");
         hobby.add("....");
 
-        Foo foo = new Foo(Long.MAX_VALUE,
+        Foo foo = new Foo(
+                Long.MAX_VALUE,
                 LocalDateTime.now(),
-                hobby);
+                hobby
+        );
 
         String json = jacksonMapper.defaultPrettyPrinter(foo);
         logger.info(json);
@@ -55,6 +61,21 @@ public class TestJacksonMapper {
         Assertions.assertEquals(foo0.getCdate(), foo.getCdate());
         Assertions.assertEquals(foo0.getId(), foo.getId());
         Assertions.assertEquals(foo0.getHobby(), foo.getHobby());
+    }
+
+    @Test
+    public void testEnableFeature() {
+        String json = "{// comments \n\"name\"// comments \n: 'yakirChen','name0'// comments \n: 'yakirChen0'}";
+        JacksonMapper jacksonMapper = new JacksonMapperBuilder()
+                .allowComments()
+                .allowSingleQuote()
+                .build();
+
+        Map<String, String> obj = jacksonMapper.readValue(json,
+                new TypeReference<Map<String, String>>() {});
+
+        Assertions.assertEquals(obj.get("name"), "yakirChen");
+        Assertions.assertEquals(obj.get("name0"), "yakirChen0");
     }
 }
 

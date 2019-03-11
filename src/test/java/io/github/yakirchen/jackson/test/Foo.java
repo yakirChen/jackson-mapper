@@ -1,4 +1,4 @@
-package com.yakirchen.jackson.test;
+package io.github.yakirchen.jackson.test;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

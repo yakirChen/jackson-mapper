@@ -1,5 +1,6 @@
-package com.yakirchen.jackson;
+package io.github.yakirchen.jackson;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -31,6 +32,26 @@ public class JacksonMapperBuilder {
         this.mapper.registerModule(jtm);
     }
 
+    /**
+     * 允许JSON中包含注释
+     *
+     * @return JacksonMapperBuilder
+     */
+    public JacksonMapperBuilder allowComments() {
+        this.mapper.enable(JsonParser.Feature.ALLOW_COMMENTS);
+        return this;
+    }
+
+    /**
+     * 允许Json中使用单引号
+     *
+     * @return JacksonMapperBuilder
+     */
+    public JacksonMapperBuilder allowSingleQuote() {
+        this.mapper.enable(JsonParser.Feature.ALLOW_SINGLE_QUOTES);
+        return this;
+    }
+
     /// format local date / local date time ---------------------------------------------
 
     public JacksonMapperBuilder dateFormat(String pattern) {
@@ -47,7 +68,7 @@ public class JacksonMapperBuilder {
      * @return JacksonMapperBuilder
      */
     public JacksonMapperBuilder snakeCase() {
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        this.mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         return this;
     }
 
@@ -57,7 +78,7 @@ public class JacksonMapperBuilder {
      * @return JacksonMapperBuilder
      */
     public JacksonMapperBuilder upperCamelCase() {
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.UPPER_CAMEL_CASE);
+        this.mapper.setPropertyNamingStrategy(PropertyNamingStrategy.UPPER_CAMEL_CASE);
         return this;
     }
 
@@ -67,7 +88,7 @@ public class JacksonMapperBuilder {
      * @return JacksonMapperBuilder
      */
     public JacksonMapperBuilder lowerCamelCase() {
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CAMEL_CASE);
+        this.mapper.setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CAMEL_CASE);
         return this;
     }
 
@@ -77,7 +98,7 @@ public class JacksonMapperBuilder {
      * @return JacksonMapperBuilder
      */
     public JacksonMapperBuilder lowerCase() {
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CASE);
+        this.mapper.setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CASE);
         return this;
     }
 
@@ -87,7 +108,7 @@ public class JacksonMapperBuilder {
      * @return JacksonMapperBuilder
      */
     public JacksonMapperBuilder kebabCase() {
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
+        this.mapper.setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
         return this;
     }
 
@@ -101,24 +122,24 @@ public class JacksonMapperBuilder {
     /// DeserializationFeature ----------------------------------------------------------
 
     public JacksonMapperBuilder deDisableFailOnUnknowPropertis() {
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, Boolean.FALSE);
+        this.mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         return this;
     }
 
     public JacksonMapperBuilder deDisableFailOnIgnoredProperties() {
-        mapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, Boolean.FALSE);
+        this.mapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
         return this;
     }
 
     /// SerializationFeature ------------------------------------------------------------
 
     public JacksonMapperBuilder seDisableDatesAsTimestamps() {
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, Boolean.FALSE);
+        this.mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         return this;
     }
 
     public JacksonMapperBuilder seDisableFailOnEmptyBeans() {
-        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, Boolean.FALSE);
+        this.mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         return this;
     }
 
@@ -135,7 +156,6 @@ public class JacksonMapperBuilder {
      * @return JacksonMapper
      */
     public JacksonMapper build() {
-
-        return mapper;
+        return this.mapper;
     }
 }

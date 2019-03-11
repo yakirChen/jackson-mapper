@@ -1,4 +1,4 @@
-package com.yakirchen.jackson;
+package io.github.yakirchen.jackson;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
