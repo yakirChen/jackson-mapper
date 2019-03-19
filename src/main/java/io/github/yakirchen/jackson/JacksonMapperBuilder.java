@@ -122,24 +122,24 @@ public class JacksonMapperBuilder {
     /// DeserializationFeature ----------------------------------------------------------
 
     public JacksonMapperBuilder deDisableFailOnUnknowPropertis() {
-        this.mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        this.mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         return this;
     }
 
     public JacksonMapperBuilder deDisableFailOnIgnoredProperties() {
-        this.mapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
+        this.mapper.disable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES);
         return this;
     }
 
     /// SerializationFeature ------------------------------------------------------------
 
     public JacksonMapperBuilder seDisableDatesAsTimestamps() {
-        this.mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        this.mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         return this;
     }
 
     public JacksonMapperBuilder seDisableFailOnEmptyBeans() {
-        this.mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        this.mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
         return this;
     }
 
