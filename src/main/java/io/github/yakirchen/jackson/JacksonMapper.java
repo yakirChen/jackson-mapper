@@ -20,6 +20,7 @@ import java.io.DataOutput;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.net.URL;
@@ -27,7 +28,7 @@ import java.net.URL;
 /**
  * JacksonMapper Unchecked Exception
  *
- * @author yakir <a href="yakirchen.com">yakirchen.com</a> on 07/12/2018 17:57.
+ * @author yakir <a href="https://yakirchen.github.io">yakirchen.github.io</a> on 2018/07/12 17:57.
  */
 public class JacksonMapper
         extends ObjectMapper {
@@ -38,6 +39,37 @@ public class JacksonMapper
     private final String ERROR_MSG = "JacksonMapper发生异常";
 
     public JacksonMapper() {
+    }
+
+    @Override
+    public <T> T convertValue(Object fromValue, Class<T> toValueType) {
+
+        try {
+            return super.convertValue(fromValue, toValueType);
+        } catch (IllegalArgumentException e) {
+            logger.error("{}", ERROR_MSG, e);
+            return null;
+        }
+    }
+
+    @Override
+    public <T> T convertValue(Object fromValue, TypeReference<?> toValueTypeRef) {
+        try {
+            return super.convertValue(fromValue, toValueTypeRef);
+        } catch (IllegalArgumentException e) {
+            logger.error("{}", ERROR_MSG, e);
+            return null;
+        }
+    }
+
+    @Override
+    public <T> T convertValue(Object fromValue, JavaType toValueType) {
+        try {
+            return super.convertValue(fromValue, toValueType);
+        } catch (IllegalArgumentException e) {
+            logger.error("{}", ERROR_MSG, e);
+            return null;
+        }
     }
 
     @Override
@@ -83,6 +115,24 @@ public class JacksonMapper
     @Override
     public void writeValue(DataOutput out,
                            Object value) {
+        try {
+            super.writeValue(out, value);
+        } catch (IOException e) {
+            logger.error("{}", ERROR_MSG, e);
+        }
+    }
+
+    @Override
+    public void writeValue(File resultFile, Object value) {
+        try {
+            super.writeValue(resultFile, value);
+        } catch (IOException e) {
+            logger.error("{}", ERROR_MSG, e);
+        }
+    }
+
+    @Override
+    public void writeValue(OutputStream out, Object value) {
         try {
             super.writeValue(out, value);
         } catch (IOException e) {
@@ -511,6 +561,16 @@ public class JacksonMapper
         try {
             return super.readTree(p);
         } catch (IOException e) {
+            logger.error("{}", ERROR_MSG, e);
+            return null;
+        }
+    }
+
+    @Override
+    public <T> T treeToValue(TreeNode n, Class<T> valueType) {
+        try {
+            return super.treeToValue(n, valueType);
+        } catch (JsonProcessingException e) {
             logger.error("{}", ERROR_MSG, e);
             return null;
         }

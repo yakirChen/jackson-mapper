@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Foo
  *
- * @author yakir <a href="yakirchen.com">yakirchen.com</a> on 10/25/2018 23:06.
+ * @author yakir <a href="https://yakirchen.github.io">yakirchen.github.io</a> on 2018/10/12 23:06.
  */
 class Foo
         implements Serializable {
