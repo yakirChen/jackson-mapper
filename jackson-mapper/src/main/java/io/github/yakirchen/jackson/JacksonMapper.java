@@ -30,11 +30,10 @@ import java.net.URL;
  *
  * @author yakir <a href="https://yakirchen.github.io">yakirchen.github.io</a> on 2018/07/12 17:57.
  */
-public class JacksonMapper
-        extends ObjectMapper {
+public class JacksonMapper extends ObjectMapper {
 
     private static final long   serialVersionUID = 5403455382358517149L;
-    private static final Logger logger           = LoggerFactory.getLogger(JacksonMapper.class);
+    private static final Logger log              = LoggerFactory.getLogger(JacksonMapper.class);
 
     private final String ERROR_MSG = "JacksonMapper发生异常";
 
@@ -47,7 +46,7 @@ public class JacksonMapper
         try {
             return super.convertValue(fromValue, toValueType);
         } catch (IllegalArgumentException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
@@ -57,7 +56,7 @@ public class JacksonMapper
         try {
             return super.convertValue(fromValue, toValueTypeRef);
         } catch (IllegalArgumentException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
@@ -67,7 +66,7 @@ public class JacksonMapper
         try {
             return super.convertValue(fromValue, toValueType);
         } catch (IllegalArgumentException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
@@ -77,18 +76,17 @@ public class JacksonMapper
         try {
             return super.writeValueAsBytes(value);
         } catch (JsonProcessingException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public void writeValue(final JsonGenerator g,
-                           final Object value) {
+    public void writeValue(final JsonGenerator g, final Object value) {
         try {
             super.writeValue(g, value);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
         }
     }
 
@@ -97,28 +95,26 @@ public class JacksonMapper
         try {
             return super.writeValueAsString(value);
         } catch (JsonProcessingException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public void writeValue(Writer w,
-                           Object value) {
+    public void writeValue(Writer w, Object value) {
         try {
             super.writeValue(w, value);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
         }
     }
 
     @Override
-    public void writeValue(DataOutput out,
-                           Object value) {
+    public void writeValue(DataOutput out, Object value) {
         try {
             super.writeValue(out, value);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
         }
     }
 
@@ -127,7 +123,7 @@ public class JacksonMapper
         try {
             super.writeValue(resultFile, value);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
         }
     }
 
@@ -136,27 +132,25 @@ public class JacksonMapper
         try {
             super.writeValue(out, value);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
         }
     }
 
     @Override
-    public void writeTree(JsonGenerator jgen,
-                          JsonNode rootNode) {
+    public void writeTree(JsonGenerator jgen, JsonNode rootNode) {
         try {
             super.writeTree(jgen, rootNode);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
         }
     }
 
     @Override
-    public void writeTree(JsonGenerator jgen,
-                          TreeNode rootNode) {
+    public void writeTree(JsonGenerator jgen, TreeNode rootNode) {
         try {
             super.writeTree(jgen, rootNode);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
         }
     }
 
@@ -165,7 +159,7 @@ public class JacksonMapper
         try {
             return super.readTree(r);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
@@ -175,7 +169,7 @@ public class JacksonMapper
         try {
             return super.readTree(source);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
@@ -185,7 +179,7 @@ public class JacksonMapper
         try {
             return super.readTree(in);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
@@ -195,7 +189,7 @@ public class JacksonMapper
         try {
             return super.readTree(file);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
@@ -205,7 +199,7 @@ public class JacksonMapper
         try {
             return super.readTree(content);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
@@ -215,343 +209,307 @@ public class JacksonMapper
         try {
             return super.readTree(content);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> MappingIterator<T> readValues(JsonParser p,
-                                             Class<T> valueType) {
+    public <T> MappingIterator<T> readValues(JsonParser p, Class<T> valueType) {
         try {
             return super.readValues(p, valueType);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(JsonParser p,
-                           Class<T> valueType) {
+    public <T> T readValue(JsonParser p, Class<T> valueType) {
         try {
             return super.readValue(p, valueType);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(JsonParser p,
-                           TypeReference<?> valueTypeRef) {
+    public <T> T readValue(JsonParser p, TypeReference<?> valueTypeRef) {
         try {
             return super.readValue(p, valueTypeRef);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(JsonParser p,
-                           JavaType valueType) {
+    public <T> T readValue(JsonParser p, JavaType valueType) {
         try {
             return super.readValue(p, valueType);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(File src,
-                           Class<T> valueType) {
+    public <T> T readValue(File src, Class<T> valueType) {
         try {
             return super.readValue(src, valueType);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(File src,
-                           TypeReference valueTypeRef) {
+    public <T> T readValue(File src, TypeReference valueTypeRef) {
         try {
             return super.readValue(src, valueTypeRef);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(File src,
-                           JavaType valueType) {
+    public <T> T readValue(File src, JavaType valueType) {
         try {
             return super.readValue(src, valueType);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(URL src,
-                           Class<T> valueType) {
+    public <T> T readValue(URL src, Class<T> valueType) {
         try {
             return super.readValue(src, valueType);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(URL src,
-                           JavaType valueType) {
+    public <T> T readValue(URL src, JavaType valueType) {
         try {
             return super.readValue(src, valueType);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(URL src,
-                           TypeReference valueTypeRef) {
+    public <T> T readValue(URL src, TypeReference valueTypeRef) {
         try {
             return super.readValue(src, valueTypeRef);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(String content,
-                           Class<T> valueType) {
+    public <T> T readValue(String content, Class<T> valueType) {
         try {
             return super.readValue(content, valueType);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(String content,
-                           TypeReference valueTypeRef) {
+    public <T> T readValue(String content, TypeReference valueTypeRef) {
         try {
             return super.readValue(content, valueTypeRef);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(String content,
-                           JavaType valueType) {
+    public <T> T readValue(String content, JavaType valueType) {
         try {
             return super.readValue(content, valueType);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(Reader src,
-                           Class<T> valueType) {
+    public <T> T readValue(Reader src, Class<T> valueType) {
         try {
             return super.readValue(src, valueType);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(Reader src,
-                           TypeReference valueTypeRef) {
+    public <T> T readValue(Reader src, TypeReference valueTypeRef) {
         try {
             return super.readValue(src, valueTypeRef);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(Reader src,
-                           JavaType valueType) {
+    public <T> T readValue(Reader src, JavaType valueType) {
         try {
             return super.readValue(src, valueType);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(InputStream src,
-                           Class<T> valueType) {
+    public <T> T readValue(InputStream src, Class<T> valueType) {
         try {
             return super.readValue(src, valueType);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(InputStream src,
-                           TypeReference valueTypeRef) {
+    public <T> T readValue(InputStream src, TypeReference valueTypeRef) {
         try {
             return super.readValue(src, valueTypeRef);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(InputStream src,
-                           JavaType valueType) {
+    public <T> T readValue(InputStream src, JavaType valueType) {
         try {
             return super.readValue(src, valueType);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(byte[] src,
-                           Class<T> valueType) {
+    public <T> T readValue(byte[] src, Class<T> valueType) {
         try {
             return super.readValue(src, valueType);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(byte[] src,
-                           int offset,
-                           int len,
-                           Class<T> valueType) {
+    public <T> T readValue(byte[] src, int offset, int len, Class<T> valueType) {
         try {
             return super.readValue(src, offset, len, valueType);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(byte[] src,
-                           TypeReference valueTypeRef) {
+    public <T> T readValue(byte[] src, TypeReference valueTypeRef) {
         try {
             return super.readValue(src, valueTypeRef);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(byte[] src,
-                           int offset,
-                           int len,
-                           TypeReference valueTypeRef) {
+    public <T> T readValue(byte[] src, int offset, int len, TypeReference valueTypeRef) {
         try {
             return super.readValue(src, offset, len, valueTypeRef);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(byte[] src,
-                           JavaType valueType) {
+    public <T> T readValue(byte[] src, JavaType valueType) {
         try {
             return super.readValue(src, valueType);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(byte[] src,
-                           int offset,
-                           int len,
-                           JavaType valueType) {
+    public <T> T readValue(byte[] src, int offset, int len, JavaType valueType) {
         try {
             return super.readValue(src, offset, len, valueType);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(DataInput src,
-                           Class<T> valueType) {
+    public <T> T readValue(DataInput src, Class<T> valueType) {
         try {
             return super.readValue(src, valueType);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> MappingIterator<T> readValues(JsonParser p,
-                                             JavaType valueType) {
+    public <T> MappingIterator<T> readValues(JsonParser p, JavaType valueType) {
         try {
             return super.readValues(p, valueType);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> MappingIterator<T> readValues(JsonParser p,
-                                             ResolvedType valueType) {
+    public <T> MappingIterator<T> readValues(JsonParser p, ResolvedType valueType) {
         try {
             return super.readValues(p, valueType);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> MappingIterator<T> readValues(JsonParser p,
-                                             TypeReference<?> valueTypeRef) {
+    public <T> MappingIterator<T> readValues(JsonParser p, TypeReference<?> valueTypeRef) {
         try {
             return super.readValues(p, valueTypeRef);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
 
     @Override
-    public <T> T readValue(DataInput src,
-                           JavaType valueType) {
+    public <T> T readValue(DataInput src, JavaType valueType) {
         try {
             return super.readValue(src, valueType);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
@@ -561,7 +519,7 @@ public class JacksonMapper
         try {
             return super.readTree(p);
         } catch (IOException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
@@ -571,7 +529,7 @@ public class JacksonMapper
         try {
             return super.treeToValue(n, valueType);
         } catch (JsonProcessingException e) {
-            logger.error("{}", ERROR_MSG, e);
+            log.error("{}", ERROR_MSG, e);
             return null;
         }
     }
@@ -586,5 +544,4 @@ public class JacksonMapper
             return null;
         }
     }
-
 }

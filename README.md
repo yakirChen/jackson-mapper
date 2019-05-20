@@ -1,6 +1,12 @@
 # Jackson Mapper
 
 
+Clone Source
+```bash
+git clone git@github.com:yakirChen/jackson-mapper.git jackson-mapper-parent
+```
+
+
 对`ObjectMapper`抛出的`Exception`做了`Catch` (log... _〔霧〕_ )
 
 ```java

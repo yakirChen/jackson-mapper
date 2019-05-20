@@ -21,7 +21,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class JacksonMapperBuilder {
 
-    private static final Logger logger = LoggerFactory.getLogger(JacksonMapperBuilder.class);
+    private static final Logger log = LoggerFactory.getLogger(JacksonMapperBuilder.class);
 
     private final JacksonMapper  mapper;
     private final JavaTimeModule jtm;

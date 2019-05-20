@@ -1,10 +1,9 @@
 package io.github.yakirchen.jackson.test;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.google.common.truth.Truth;
 import io.github.yakirchen.jackson.JacksonMapper;
 import io.github.yakirchen.jackson.JacksonMapperBuilder;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +23,6 @@ public class TestJacksonMapper {
 
     private static final String DATE_PATTERN = "yyyy-MM-dd HH:mm:ss SSS";
 
-    @Test
     public void testJacksonMapperBuild() {
 
         JacksonMapper jacksonMapper = new JacksonMapperBuilder()
@@ -58,12 +56,11 @@ public class TestJacksonMapper {
         logger.info(json);
         Foo foo0 = jacksonMapper.readValue(json, Foo.class);
 
-        Assertions.assertEquals(foo0.getCdate(), foo.getCdate());
-        Assertions.assertEquals(foo0.getId(), foo.getId());
-        Assertions.assertEquals(foo0.getHobby(), foo.getHobby());
+        Truth.assertThat(foo0.getCdate()).isEqualTo(foo.getCdate());
+        Truth.assertThat(foo0.getId()).isEqualTo(foo.getId());
+        Truth.assertThat(foo0.getHobby()).isEqualTo(foo.getHobby());
     }
 
-    @Test
     public void testEnableFeature() {
         String json = "{// comments \n\"name\"// comments \n: 'yakirChen','name0'// comments \n: 'yakirChen0'}";
         JacksonMapper jacksonMapper = new JacksonMapperBuilder()
@@ -74,8 +71,16 @@ public class TestJacksonMapper {
         Map<String, String> obj = jacksonMapper.readValue(json,
                 new TypeReference<Map<String, String>>() {});
 
-        Assertions.assertEquals(obj.get("name"), "yakirChen");
-        Assertions.assertEquals(obj.get("name0"), "yakirChen0");
+        Truth.assertThat(obj.get("name")).isEqualTo("yakirChen");
+        Truth.assertThat(obj.get("name0")).isEqualTo("yakirChen0");
+    }
+
+
+    public static void main(String[] args) {
+
+        TestJacksonMapper testJacksonMapper = new TestJacksonMapper();
+        testJacksonMapper.testEnableFeature();
+        testJacksonMapper.testJacksonMapperBuild();
     }
 }
 
