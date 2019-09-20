@@ -1,4 +1,4 @@
-package io.github.yakirchen.jackson;
+package io.github.jackson;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -12,8 +12,10 @@ import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.databind.type.MapType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -24,6 +26,8 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.net.URL;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * JacksonMapper Unchecked Exception
@@ -32,10 +36,11 @@ import java.net.URL;
  */
 public class JacksonMapper extends ObjectMapper {
 
-    private static final long   serialVersionUID = 5403455382358517149L;
-    private static final Logger log              = LoggerFactory.getLogger(JacksonMapper.class);
+    private static final long serialVersionUID = 5403455382358517149L;
 
-    private final String ERROR_MSG = "JacksonMapper发生异常";
+    private static final Logger log = LogManager.getLogger(JacksonMapper.class);
+
+    private static final String ERROR_MSG = "JacksonMapper发生异常";
 
     public JacksonMapper() {
     }
@@ -52,7 +57,7 @@ public class JacksonMapper extends ObjectMapper {
     }
 
     @Override
-    public <T> T convertValue(Object fromValue, TypeReference<?> toValueTypeRef) {
+    public <T> T convertValue(Object fromValue, TypeReference<T> toValueTypeRef) {
         try {
             return super.convertValue(fromValue, toValueTypeRef);
         } catch (IllegalArgumentException e) {
@@ -235,7 +240,7 @@ public class JacksonMapper extends ObjectMapper {
     }
 
     @Override
-    public <T> T readValue(JsonParser p, TypeReference<?> valueTypeRef) {
+    public <T> T readValue(JsonParser p, TypeReference<T> valueTypeRef) {
         try {
             return super.readValue(p, valueTypeRef);
         } catch (IOException e) {
@@ -265,7 +270,7 @@ public class JacksonMapper extends ObjectMapper {
     }
 
     @Override
-    public <T> T readValue(File src, TypeReference valueTypeRef) {
+    public <T> T readValue(File src, TypeReference<T> valueTypeRef) {
         try {
             return super.readValue(src, valueTypeRef);
         } catch (IOException e) {
@@ -305,7 +310,7 @@ public class JacksonMapper extends ObjectMapper {
     }
 
     @Override
-    public <T> T readValue(URL src, TypeReference valueTypeRef) {
+    public <T> T readValue(URL src, TypeReference<T> valueTypeRef) {
         try {
             return super.readValue(src, valueTypeRef);
         } catch (IOException e) {
@@ -325,7 +330,7 @@ public class JacksonMapper extends ObjectMapper {
     }
 
     @Override
-    public <T> T readValue(String content, TypeReference valueTypeRef) {
+    public <T> T readValue(String content, TypeReference<T> valueTypeRef) {
         try {
             return super.readValue(content, valueTypeRef);
         } catch (IOException e) {
@@ -355,7 +360,7 @@ public class JacksonMapper extends ObjectMapper {
     }
 
     @Override
-    public <T> T readValue(Reader src, TypeReference valueTypeRef) {
+    public <T> T readValue(Reader src, TypeReference<T> valueTypeRef) {
         try {
             return super.readValue(src, valueTypeRef);
         } catch (IOException e) {
@@ -385,7 +390,7 @@ public class JacksonMapper extends ObjectMapper {
     }
 
     @Override
-    public <T> T readValue(InputStream src, TypeReference valueTypeRef) {
+    public <T> T readValue(InputStream src, TypeReference<T> valueTypeRef) {
         try {
             return super.readValue(src, valueTypeRef);
         } catch (IOException e) {
@@ -425,7 +430,7 @@ public class JacksonMapper extends ObjectMapper {
     }
 
     @Override
-    public <T> T readValue(byte[] src, TypeReference valueTypeRef) {
+    public <T> T readValue(byte[] src, TypeReference<T> valueTypeRef) {
         try {
             return super.readValue(src, valueTypeRef);
         } catch (IOException e) {
@@ -435,7 +440,7 @@ public class JacksonMapper extends ObjectMapper {
     }
 
     @Override
-    public <T> T readValue(byte[] src, int offset, int len, TypeReference valueTypeRef) {
+    public <T> T readValue(byte[] src, int offset, int len, TypeReference<T> valueTypeRef) {
         try {
             return super.readValue(src, offset, len, valueTypeRef);
         } catch (IOException e) {
@@ -495,7 +500,7 @@ public class JacksonMapper extends ObjectMapper {
     }
 
     @Override
-    public <T> MappingIterator<T> readValues(JsonParser p, TypeReference<?> valueTypeRef) {
+    public <T> MappingIterator<T> readValues(JsonParser p, TypeReference<T> valueTypeRef) {
         try {
             return super.readValues(p, valueTypeRef);
         } catch (IOException e) {
@@ -534,12 +539,28 @@ public class JacksonMapper extends ObjectMapper {
         }
     }
 
+    public CollectionType constructCollectionType(Class<? extends Collection> collectionClass, Class<?> elementClass) {
+        return super.getTypeFactory().constructCollectionType(collectionClass, elementClass);
+    }
+
+    public MapType constructconstructMapTypeCollectionType(Class<? extends Map> mapClass, Class<?> keyClass, Class<?> valueClass) {
+        return super.getTypeFactory().constructMapType(mapClass, keyClass, valueClass);
+    }
+
     public <T> String defaultPrettyPrinter(T obj) {
 
         SerializationConfig config       = getSerializationConfig();
         ObjectWriter        objectWriter = _newWriter(config, null, config.getDefaultPrettyPrinter());
         try {
             return objectWriter.writeValueAsString(obj);
+        } catch (JsonProcessingException exc) {
+            return null;
+        }
+    }
+
+    public <T> String withPrettyPrinter(T t) {
+        try {
+            return super.writerWithDefaultPrettyPrinter().writeValueAsString(t);
         } catch (JsonProcessingException exc) {
             return null;
         }

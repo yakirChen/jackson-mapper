@@ -1,11 +1,11 @@
-package io.github.yakirchen.jackson.test;
+package io.github.jackson.test;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.truth.Truth;
-import io.github.yakirchen.jackson.JacksonMapper;
-import io.github.yakirchen.jackson.JacksonMapperBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.github.jackson.JacksonMapper;
+import io.github.jackson.JacksonMapperBuilder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class TestJacksonMapper {
 
-    private static final Logger logger = LoggerFactory.getLogger(TestJacksonMapper.class);
+    private static final Logger log = LogManager.getLogger(TestJacksonMapper.class);
 
     private static final String DATE_PATTERN = "yyyy-MM-dd HH:mm:ss SSS";
 
@@ -35,16 +35,19 @@ public class TestJacksonMapper {
                 .deDisableFailOnIgnoredProperties()
                 .seDisableDatesAsTimestamps()
                 .seDisableFailOnEmptyBeans()
-                .seDateTimeFormatterPattern(DATE_PATTERN)
-                .deDateTimeFormatterPattern(DATE_PATTERN)
+                .registerLocalDateTime(DATE_PATTERN)
                 .dateFormat(DATE_PATTERN)
                 .build();
 
-        List<String> hobby = new ArrayList<>(1);
-        hobby.add(".");
-        hobby.add("..");
-        hobby.add("...");
-        hobby.add("....");
+        List<String> hobby = new ArrayList<String>() {{
+            add(".");
+            add("..");
+            add("...");
+            add("....");
+            add(".....");
+            add("......");
+            add(".......");
+        }};
 
         Foo foo = new Foo(
                 Long.MAX_VALUE,
@@ -53,12 +56,19 @@ public class TestJacksonMapper {
         );
 
         String json = jacksonMapper.defaultPrettyPrinter(foo);
-        logger.info(json);
+        log.info(json);
+        String json0 = jacksonMapper.withPrettyPrinter(foo);
+        log.info(json0);
         Foo foo0 = jacksonMapper.readValue(json, Foo.class);
 
         Truth.assertThat(foo0.getCdate()).isEqualTo(foo.getCdate());
         Truth.assertThat(foo0.getId()).isEqualTo(foo.getId());
         Truth.assertThat(foo0.getHobby()).isEqualTo(foo.getHobby());
+
+        Foo foo1 = jacksonMapper.readValue(json, new TypeReference<Foo>() {});
+        Truth.assertThat(foo1.getCdate()).isEqualTo(foo.getCdate());
+        Truth.assertThat(foo1.getId()).isEqualTo(foo.getId());
+        Truth.assertThat(foo1.getHobby()).isEqualTo(foo.getHobby());
     }
 
     public void testEnableFeature() {
@@ -75,12 +85,18 @@ public class TestJacksonMapper {
         Truth.assertThat(obj.get("name0")).isEqualTo("yakirChen0");
     }
 
-
     public static void main(String[] args) {
 
-        TestJacksonMapper testJacksonMapper = new TestJacksonMapper();
-        testJacksonMapper.testEnableFeature();
-        testJacksonMapper.testJacksonMapperBuild();
+        try {
+
+            TestJacksonMapper testJacksonMapper = new TestJacksonMapper();
+            testJacksonMapper.testEnableFeature();
+            testJacksonMapper.testJacksonMapperBuild();
+
+        } catch (Throwable thr) {
+            log.error("Err:", thr);
+        }
+
     }
 }
 

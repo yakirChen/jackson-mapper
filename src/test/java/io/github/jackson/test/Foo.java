@@ -1,4 +1,4 @@
-package io.github.yakirchen.jackson.test;
+package io.github.jackson.test;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -9,8 +9,10 @@ import java.util.List;
  *
  * @author yakir <a href="https://yakirchen.github.io">yakirchen.github.io</a> on 2018/10/12 23:06.
  */
-class Foo
-        implements Serializable {
+class Foo implements Serializable {
+
+    private static final long serialVersionUID = -5535486419876844208L;
+
     private Long          id;
     private LocalDateTime cdate;
     private List<String>  hobby;
@@ -18,10 +20,8 @@ class Foo
     public Foo() {
     }
 
-    public Foo(Long id,
-               LocalDateTime cdate,
-               List<String> hobby) {
-        this.id = id;
+    public Foo(Long id, LocalDateTime cdate, List<String> hobby) {
+        this.id    = id;
         this.cdate = cdate;
         this.hobby = hobby;
     }

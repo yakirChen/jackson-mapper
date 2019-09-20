@@ -5,12 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.yakirchen</groupId>
-    <artifactId>jackson-mapper-parent</artifactId>
+    <artifactId>jackson-mapper</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <name>Jackson Mapper Parent</name>
-    <description>Jackson Mapper Parent</description>
-    <url>https://yakirchen.github.io</url>
+    <name>Jackson Mapper</name>
+    <description>Jackson Mapper</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,22 +20,21 @@
         <!-- build -->
         <maven.surefire.version>3.0.0-M3</maven.surefire.version>
         <maven.failsafe.version>3.0.0-M3</maven.failsafe.version>
-        <maven.site.version>3.7.1</maven.site.version>
-        <maven.source.version>3.0.1</maven.source.version>
+        <maven.site.version>3.8.2</maven.site.version>
+        <maven.source.version>3.1.0</maven.source.version>
         <maven.enforcer.version>3.0.0-M2</maven.enforcer.version>
         <maven.clean.version>3.1.0</maven.clean.version>
         <maven.compiler.version>3.8.1</maven.compiler.version>
         <maven.install.version>3.0.0-M1</maven.install.version>
         <maven.jar.version>3.1.2</maven.jar.version>
         <maven.resources.version>3.1.0</maven.resources.version>
-        <maven.site.version>3.7.1</maven.site.version>
-        <maven.javadoc.version>3.1.0</maven.javadoc.version>
+        <maven.javadoc.version>3.1.1</maven.javadoc.version>
         <maven.deploy.version>3.0.0-M1</maven.deploy.version>
         <maven.gpg.version>1.6</maven.gpg.version>
 
         <maven.os.version>1.6.2</maven.os.version>
         <os.detection.classifierWithLikes>
-            linux,osx,windows
+            linux,osx,macos,macosx,windows
         </os.detection.classifierWithLikes>
         <os.detected.arch>x86_64</os.detected.arch>
 
@@ -45,35 +42,26 @@
         <!--<ch.qos.logback.version>1.2.3</ch.qos.logback.version>-->
         <org.slf4j.api.version>1.8.0-beta4</org.slf4j.api.version>
         <ch.qos.logback.version>1.3.0-alpha4</ch.qos.logback.version>
+        <log4j.version>2.12.1</log4j.version>
 
-        <org.json.version>20180813</org.json.version>
+        <org.json.version>20190722</org.json.version>
         <javax.json.api.version>1.1.4</javax.json.api.version>
 
         <jackson.classmate.version>1.5.0</jackson.classmate.version>
-        <jackson.version>2.9.9</jackson.version>
-        <jackson.version.annotations>2.9.9</jackson.version.annotations>
-        <jackson.version.core>2.9.9</jackson.version.core>
-        <jackson.version.databind>2.9.9</jackson.version.databind>
-        <jackson.version.dataformat>2.9.9</jackson.version.dataformat>
-        <jackson.version.datatype>2.9.9</jackson.version.datatype>
-        <jackson.version.jaxrs>2.9.9</jackson.version.jaxrs>
-        <jackson.version.jacksonjr>2.9.9</jackson.version.jacksonjr>
-        <jackson.version.module>2.9.9</jackson.version.module>
-        <jackson.version.module.kotlin>2.9.9</jackson.version.module.kotlin>
-        <jackson.version.module.scala>2.9.9</jackson.version.module.scala>
+        <jackson.version>2.10.0.pr3</jackson.version>
+        <jackson.version.annotations>2.10.0.pr3</jackson.version.annotations>
+        <jackson.version.core>2.10.0.pr3</jackson.version.core>
+        <jackson.version.databind>2.10.0.pr3</jackson.version.databind>
+        <jackson.version.dataformat>2.10.0.pr3</jackson.version.dataformat>
+        <jackson.version.datatype>2.10.0.pr3</jackson.version.datatype>
+        <jackson.version.jaxrs>2.10.0.pr3</jackson.version.jaxrs>
+        <jackson.version.jacksonjr>2.10.0.pr3</jackson.version.jacksonjr>
+        <jackson.version.module>2.10.0.pr3</jackson.version.module>
+        <jackson.version.module.kotlin>2.10.0.pr3</jackson.version.module.kotlin>
+        <jackson.version.module.scala>2.10.0.pr3</jackson.version.module.scala>
 
-        <truth.version>0.44</truth.version>
-
-        <junit4.version>4.13-beta-3</junit4.version>
-        <junit5.platform.version>1.4.1</junit5.platform.version>
-        <junit5.jupiter.version>5.4.1</junit5.jupiter.version>
-        <junit5.vintage.version>5.4.1</junit5.vintage.version>
+        <truth.version>1.0</truth.version>
     </properties>
-
-    <modules>
-        <module>jackson-mapper</module>
-        <module>jackson-mapper-test</module>
-    </modules>
 
     <dependencyManagement>
         <dependencies>
@@ -102,16 +90,11 @@
             </dependency>
 
             <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${org.slf4j.api.version}</version>
-                <optional>true</optional>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${ch.qos.logback.version}</version>
-                <optional>true</optional>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-bom</artifactId>
+                <version>${log4j.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
             <dependency>
@@ -125,57 +108,130 @@
                 <artifactId>truth</artifactId>
                 <version>${truth.version}</version>
             </dependency>
-
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-api</artifactId>
-                <version>${junit5.jupiter.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-engine</artifactId>
-                <version>${junit5.jupiter.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.junit.vintage</groupId>
-                <artifactId>junit-vintage-engine</artifactId>
-                <version>${junit5.vintage.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.junit.platform</groupId>
-                <artifactId>junit-platform-runner</artifactId>
-                <version>${junit5.platform.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.junit.platform</groupId>
-                <artifactId>junit-platform-launcher</artifactId>
-                <version>${junit5.platform.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.junit.platform</groupId>
-                <artifactId>junit-platform-engine</artifactId>
-                <version>${junit5.platform.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.junit.platform</groupId>
-                <artifactId>junit-platform-commons</artifactId>
-                <version>${junit5.platform.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit4.version}</version>
-                <scope>test</scope>
-            </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml</groupId>
+            <artifactId>classmate</artifactId>
+        </dependency>
+
+        <!-- Core -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <!-- Data Formats -->
+        <!--<dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-avro</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-cbor</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-ion</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-properties</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-protobuf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-smile</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-csv</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+        </dependency>
+
+        <!-- Data Types -->
+        <!--<dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-hibernate3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-hibernate4</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-hibernate5</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-hppc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jaxrs</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-joda</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-pcollections</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jdk8</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+        <!--<dependency>-->
+        <!--    <groupId>com.fasterxml.jackson.datatype</groupId>-->
+        <!--    <artifactId>jackson-datatype-jsr353</artifactId>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>com.google.truth</groupId>
+            <artifactId>truth</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <profiles>
         <profile>
@@ -275,12 +331,12 @@
                 <repository>
                     <id>github</id>
                     <name>GitHub yakirChen Maven Packages</name>
-                    <url>https://maven.pkg.github.com/yakirChen</url>
+                    <url>https://maven.pkg.github.com/yakirChen/jackson-mapper</url>
                 </repository>
                 <snapshotRepository>
                     <id>github</id>
                     <name>GitHub yakirChen Maven Packages</name>
-                    <url>https://maven.pkg.github.com/yakirChen</url>
+                    <url>https://maven.pkg.github.com/yakirChen/jackson-mapper</url>
                 </snapshotRepository>
             </distributionManagement>
         </profile>
@@ -393,37 +449,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <licenses>
-        <license>
-            <name>Mozilla Public License Version 2.0</name>
-            <url>https://www.mozilla.org/media/MPL/2.0/index.txt</url>
-            <distribution>repo</distribution>
-            <comments>Mozilla Public License 2.0</comments>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <id>yakir</id>
-            <name>yakirChen</name>
-            <url>yakirchen.github.io</url>
-            <email>iamyakirchen@outlook.com</email>
-            <timezone>+8</timezone>
-        </developer>
-    </developers>
-    <contributors>
-        <contributor>
-            <name>yakirChen</name>
-            <url>yakirchen.github.io</url>
-            <email>iamyakirchen@outlook.com</email>
-            <timezone>+8</timezone>
-        </contributor>
-    </contributors>
-
-    <scm>
-        <url>scm:git:https://github.com/yakirChen/jackson-mapper</url>
-        <connection>scm:git:https://github.com/yakirChen/jackson-mapper</connection>
-        <developerConnection>scm:git:https://github.com/yakirChen/jackson-mapper</developerConnection>
-    </scm>
 </project>

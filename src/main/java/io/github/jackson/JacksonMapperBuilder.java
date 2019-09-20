@@ -1,4 +1,4 @@
-package io.github.yakirchen.jackson;
+package io.github.jackson;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -7,8 +7,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -21,15 +21,12 @@ import java.time.format.DateTimeFormatter;
  */
 public class JacksonMapperBuilder {
 
-    private static final Logger log = LoggerFactory.getLogger(JacksonMapperBuilder.class);
+    private static final Logger log = LogManager.getLogger(JacksonMapperBuilder.class);
 
-    private final JacksonMapper  mapper;
-    private final JavaTimeModule jtm;
+    private final JacksonMapper mapper;
 
     public JacksonMapperBuilder() {
-        this.jtm = new JavaTimeModule();
         this.mapper = new JacksonMapper();
-        this.mapper.registerModule(jtm);
     }
 
     /**
@@ -112,13 +109,6 @@ public class JacksonMapperBuilder {
         return this;
     }
 
-    public JacksonMapperBuilder seDateTimeFormatterPattern(String pattern) {
-        DateTimeFormatter       dtf         = DateTimeFormatter.ofPattern(pattern);
-        LocalDateTimeSerializer dateTimeSer = new LocalDateTimeSerializer(dtf);
-        jtm.addSerializer(LocalDateTime.class, dateTimeSer);
-        return this;
-    }
-
     /// DeserializationFeature ----------------------------------------------------------
 
     public JacksonMapperBuilder deDisableFailOnUnknowPropertis() {
@@ -143,10 +133,18 @@ public class JacksonMapperBuilder {
         return this;
     }
 
-    public JacksonMapperBuilder deDateTimeFormatterPattern(String pattern) {
-        DateTimeFormatter         dtf           = DateTimeFormatter.ofPattern(pattern);
-        LocalDateTimeDeserializer dateTimeDeser = new LocalDateTimeDeserializer(dtf);
-        jtm.addDeserializer(LocalDateTime.class, dateTimeDeser);
+    /**
+     * 注册 LocalDateTime
+     *
+     * @param pattern 时间格式表达式
+     * @return JacksonMapperBuilder
+     */
+    public JacksonMapperBuilder registerLocalDateTime(String pattern) {
+        JavaTimeModule    jtm = new JavaTimeModule();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(pattern);
+        jtm.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(dtf));
+        jtm.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(dtf));
+        this.mapper.registerModule(jtm);
         return this;
     }
 
