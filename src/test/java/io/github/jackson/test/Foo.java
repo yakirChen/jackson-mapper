@@ -13,34 +13,36 @@ class Foo implements Serializable {
 
     private static final long serialVersionUID = -5535486419876844208L;
 
-    private Long          id;
-    private LocalDateTime cdate;
+    private Long          fooId;
+    private LocalDateTime fooCdate;
     private List<String>  hobby;
+    private Bar           bar;
 
     public Foo() {
     }
 
-    public Foo(Long id, LocalDateTime cdate, List<String> hobby) {
-        this.id    = id;
-        this.cdate = cdate;
-        this.hobby = hobby;
+    public Foo(Long fooId, LocalDateTime fooCdate, List<String> hobby, Bar bar) {
+        this.fooId    = fooId;
+        this.fooCdate = fooCdate;
+        this.hobby    = hobby;
+        this.bar      = bar;
     }
 
-    public Long getId() {
-        return id;
+    public Long getFooId() {
+        return fooId;
     }
 
-    public Foo setId(Long id) {
-        this.id = id;
+    public Foo setFooId(Long fooId) {
+        this.fooId = fooId;
         return this;
     }
 
-    public LocalDateTime getCdate() {
-        return cdate;
+    public LocalDateTime getFooCdate() {
+        return fooCdate;
     }
 
-    public Foo setCdate(LocalDateTime cdate) {
-        this.cdate = cdate;
+    public Foo setFooCdate(LocalDateTime fooCdate) {
+        this.fooCdate = fooCdate;
         return this;
     }
 
@@ -53,12 +55,22 @@ class Foo implements Serializable {
         return this;
     }
 
+    public Bar getBar() {
+        return bar;
+    }
+
+    public Foo setBar(Bar bar) {
+        this.bar = bar;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Foo{" +
-               "id=" + id +
-               ", cdate=" + cdate +
-               ", hobby=" + hobby +
-               '}';
+                "fooId=" + fooId +
+                ", fooCdate=" + fooCdate +
+                ", hobby=" + hobby +
+                ", bar=" + bar +
+                '}';
     }
 }
