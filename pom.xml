@@ -42,7 +42,7 @@
         <!--<ch.qos.logback.version>1.2.3</ch.qos.logback.version>-->
         <org.slf4j.api.version>1.8.0-beta4</org.slf4j.api.version>
         <ch.qos.logback.version>1.3.0-alpha4</ch.qos.logback.version>
-        <log4j.version>2.13.1</log4j.version>
+        <log4j.version>2.13.2</log4j.version>
         <org.json.version>20190722</org.json.version>
         <javax.json.api.version>1.1.4</javax.json.api.version>
 
@@ -271,17 +271,17 @@
         <profile>
             <id>2.11</id>
             <properties>
-                <jackson.version>2.11.0.rc1</jackson.version>
-                <jackson.version.annotations>2.11.0.rc1</jackson.version.annotations>
-                <jackson.version.core>2.11.0.rc1</jackson.version.core>
-                <jackson.version.databind>2.11.0.rc1</jackson.version.databind>
-                <jackson.version.dataformat>2.11.0.rc1</jackson.version.dataformat>
-                <jackson.version.datatype>2.11.0.rc1</jackson.version.datatype>
-                <jackson.version.jaxrs>2.11.0.rc1</jackson.version.jaxrs>
-                <jackson.version.jacksonjr>2.11.0.rc1</jackson.version.jacksonjr>
-                <jackson.version.module>2.11.0.rc1</jackson.version.module>
-                <jackson.version.module.kotlin>2.11.0.rc1</jackson.version.module.kotlin>
-                <jackson.version.module.scala>2.11.0.rc1</jackson.version.module.scala>
+                <jackson.version>2.11.0</jackson.version>
+                <jackson.version.annotations>2.11.0</jackson.version.annotations>
+                <jackson.version.core>2.11.0</jackson.version.core>
+                <jackson.version.databind>2.11.0</jackson.version.databind>
+                <jackson.version.dataformat>2.11.0</jackson.version.dataformat>
+                <jackson.version.datatype>2.11.0</jackson.version.datatype>
+                <jackson.version.jaxrs>2.11.0</jackson.version.jaxrs>
+                <jackson.version.jacksonjr>2.11.0</jackson.version.jacksonjr>
+                <jackson.version.module>2.11.0</jackson.version.module>
+                <jackson.version.module.kotlin>2.11.0</jackson.version.module.kotlin>
+                <jackson.version.module.scala>2.11.0</jackson.version.module.scala>
             </properties>
         </profile>
         <profile>
